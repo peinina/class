@@ -1,1 +1,70 @@
+#!/usr/bin/env python3
+import os
+import math
+from math import pi,gamma
+import numpy as np
+
+import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d
+
+from mpl_toolkits.mplot3d import Axes3D
+
+
+
+# Range of n and R values
+
+n= np.arange(0,51)
+R= np.arange(1, 2.05,0.05)
+
+
+
+filename = os.path.basename(__file__)
+
+
+
+Y,X = np.meshgrid(R, n)
+
+
+
+# Initialize a matrix to store volume values
+
+Z = np.zeros((len(n), len(R)))
+
+
+
+for i, n in enumerate(n):
+
+
+
+    for j, rad in enumerate(R):
+
+
+
+        Z[i, j] = ((pi**(n/2)) * rad**n) / (gamma((n/2)+1))
+
+
+
+
+
+
+
+fig = plt.figure(figsize=(14, 10))
+
+ax = fig.add_subplot(111, projection='3d')
+
+c=ax.plot_surface(X, Y, Z, cmap='magma')
+
+ax.set_xlabel('n dimension')
+
+ax.set_ylabel('R(radius)')
+
+ax.set_zlabel('Volume')
+
+fig.colorbar(c, ax=ax, label='Volume')
+
+ax.set_title('volume of a n-dimensional sphere Vs  n (dimension) , R(radius)')
+
+
+
+plt.show()
 
